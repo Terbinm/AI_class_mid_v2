@@ -201,7 +201,7 @@ def plot_actual_vs_predicted(model, X_test, y_test, target_name=None, title=None
     plt.ylabel('預測值')
 
     # 添加評估指標注釋
-    plt.annotate(f'R² = {r2:.4f}\nRMSE = {rmse:.4f}',
+    plt.annotate(f'R-squared = {r2:.4f}\nRMSE = {rmse:.4f}',
                  xy=(0.05, 0.95), xycoords='axes fraction',
                  bbox=dict(boxstyle='round', alpha=0.1))
 
@@ -362,21 +362,11 @@ def plot_residuals(model, X_test, y_test, target_name=None, title=None):
     plt.xlabel('殘差')
     plt.ylabel('頻率')
 
-    # 3. Q-Q 圖
+    # 3. Q-Q 圖 (使用 scipy.stats 而非 np.erfinv)
     plt.subplot(2, 2, 3)
-    sorted_residuals = np.sort(residuals)
-    norm_quantiles = np.linspace(0, 1, len(sorted_residuals))
-    sorted_norm = np.sqrt(2) * np.erfinv(2 * norm_quantiles - 1)
-    plt.scatter(sorted_norm, sorted_residuals, alpha=0.7)
-
-    # 添加對角線
-    min_val = min(sorted_norm.min(), sorted_residuals.min())
-    max_val = max(sorted_norm.max(), sorted_residuals.max())
-    plt.plot([min_val, max_val], [min_val, max_val], 'r--')
-
+    from scipy import stats
+    stats.probplot(residuals, dist="norm", plot=plt)
     plt.title('殘差 Q-Q 圖')
-    plt.xlabel('理論分位數')
-    plt.ylabel('樣本分位數')
 
     # 4. 殘差 vs 觀測值序號
     plt.subplot(2, 2, 4)
@@ -395,7 +385,6 @@ def plot_residuals(model, X_test, y_test, target_name=None, title=None):
     plt.tight_layout(rect=[0, 0, 1, 0.96])
 
     return plt.gcf()
-
 
 def plot_feature_importance_coefficients(model, feature_names, target_name=None, top_n=10):
     """

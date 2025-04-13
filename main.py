@@ -60,7 +60,7 @@ def main():
         return
 
     # 定義目標變數
-    target_cols = ['roughness', 'tension_strenght', 'elongation']
+    target_cols = ['roughness', 'tension_strength', 'elongation']
 
     # 步驟2: 資料分析
     print("\n步驟2: 資料分析")
@@ -188,7 +188,7 @@ def main():
     r2_comparison.to_csv(os.path.join(tables_dir, "r2_comparison.csv"))
 
     # 繪製R2比較圖
-    r2_plot = plot_comparison(r2_comparison, title='模型R²比較 (較高值表示更好的效能)', is_lower_better=False)
+    r2_plot = plot_comparison(r2_comparison, title='模型R-squared比較 (較高值表示更好的效能)', is_lower_better=False)
     r2_plot.savefig(os.path.join(figures_dir, "r2_comparison.png"))
 
     # 8.3 詳細評估最佳模型
@@ -203,7 +203,7 @@ def main():
         best_models[target] = (best_model_type, all_models[best_model_type][target])
 
         print(f"\n目標變數: {target}")
-        print(f"最佳模型: {best_model_type}, R² = {target_r2[best_model_type]:.4f}")
+        print(f"最佳模型: {best_model_type}, R-squared = {target_r2[best_model_type]:.4f}")
 
         # 繪製實際值與預測值對比圖
         actual_vs_pred_plot = plot_actual_vs_predicted(

@@ -27,8 +27,11 @@ def plot_correlation_matrix(df, target_cols=None, figsize=(12, 10)):
     """
     set_plotting_style()
 
+    # 只選擇數值型欄位計算相關矩陣
+    numeric_df = df.select_dtypes(include=['int64', 'float64'])
+
     # 計算相關矩陣
-    corr = df.corr()
+    corr = numeric_df.corr()
 
     # 設置圖表大小
     plt.figure(figsize=figsize)
@@ -43,15 +46,14 @@ def plot_correlation_matrix(df, target_cols=None, figsize=(12, 10)):
     # 如果指定了目標變數，標示它們
     if target_cols:
         for col in target_cols:
-            if col in df.columns:
-                plt.axhline(y=df.columns.get_loc(col) + 0.5, color='black', linestyle='--', linewidth=1)
-                plt.axvline(x=df.columns.get_loc(col) + 0.5, color='black', linestyle='--', linewidth=1)
+            if col in numeric_df.columns:
+                plt.axhline(y=numeric_df.columns.get_loc(col) + 0.5, color='black', linestyle='--', linewidth=1)
+                plt.axvline(x=numeric_df.columns.get_loc(col) + 0.5, color='black', linestyle='--', linewidth=1)
 
     plt.title('特徵相關矩陣')
     plt.tight_layout()
 
     return plt.gcf()
-
 
 def plot_feature_distributions(df, categorical_cols=None, continuous_cols=None, figsize=(15, 10)):
     """

@@ -65,11 +65,11 @@ def train_lasso_regression(X_train, y_train, cv=5):
     for col in y_train.columns:
         # 定義參數網格
         param_grid = {
-            'alpha': np.logspace(-4, 1, 20)
+            'alpha': np.logspace(-5, 2, 30)
         }
 
         # 創建Lasso模型
-        lasso = Lasso(max_iter=10000, random_state=42)
+        lasso = Lasso(max_iter=20000, random_state=42)
 
         # 使用網格搜索找到最佳參數
         grid = GridSearchCV(lasso, param_grid, cv=cv, scoring='neg_mean_squared_error')
@@ -102,7 +102,7 @@ def train_ridge_regression(X_train, y_train, cv=5):
     for col in y_train.columns:
         # 定義參數網格
         param_grid = {
-            'alpha': np.logspace(-4, 1, 20)
+            'alpha': np.logspace(-5, 2, 30)
         }
 
         # 創建Ridge模型

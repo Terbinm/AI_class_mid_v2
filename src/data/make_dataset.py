@@ -83,7 +83,7 @@ def main(input_filepath, output_dir):
     df = load_data(input_filepath)
 
     # 定義目標變數
-    target_cols = ['roughness', 'tension_strenght', 'elongation']
+    target_cols = ['roughness', 'tension_strength', 'elongation']
 
     # 分割資料
     print("分割資料為訓練集和測試集...")

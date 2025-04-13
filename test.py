@@ -67,7 +67,7 @@ def create_project_structure(base_path="3d_printing_quality_prediction"):
     data_file = os.path.join(base_path, "data/raw/3d_printing_data.csv")
     with open(data_file, 'w', encoding='utf-8') as f:
         f.write(
-            "layer_height,wall_thickness,infill_density,infill_pattern,nozzle_temperature,bed_temperature,print_speed,material,fan_speed,roughness,tension_strenght,elongation\n")
+            "layer_height,wall_thickness,infill_density,infill_pattern,nozzle_temperature,bed_temperature,print_speed,material,fan_speed,roughness,tension_strength,elongation\n")
         f.write("0.02,8,90,grid,220,60,40,abs,0,25,18,1.2\n")
         f.write("0.02,7,90,honeycomb,225,65,40,abs,25,32,16,1.4\n")
         f.write("0.02,1,80,grid,230,70,40,abs,50,40,8,0.8\n")
